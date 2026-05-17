@@ -30,21 +30,21 @@ function CountdownTimer() {
   ];
 
   return (
-    <div className="flex justify-center gap-4 md:gap-6">
+    <div className="flex justify-center gap-2 sm:gap-4 md:gap-6">
       {units.map((u) => (
         <div key={u.label} className="text-center">
           <div
-            className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center"
+            className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center"
             style={{ background: "rgba(201,169,110,0.1)", border: "1px solid rgba(201,169,110,0.3)" }}
           >
             <span
-              className="text-2xl md:text-3xl tabular-nums"
+              className="text-xl sm:text-2xl md:text-3xl tabular-nums"
               style={{ fontFamily: "'Cormorant Garamond', serif", color: "#c9a96e", fontWeight: 600 }}
             >
               {String(u.value).padStart(2, "0")}
             </span>
           </div>
-          <p className="text-xs mt-2 tracking-wider" style={{ color: "#7a6050", fontFamily: "'Lato', sans-serif" }}>
+          <p className="text-xs mt-1.5 tracking-wider" style={{ color: "#7a6050", fontFamily: "'Lato', sans-serif" }}>
             {u.label}
           </p>
         </div>
@@ -58,7 +58,7 @@ function FadeInCard({ children, delay = 0 }: { children: React.ReactNode; delay?
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.2 });
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.15 });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
@@ -100,22 +100,18 @@ export function WeddingDetails() {
   return (
     <section
       id="wedding"
-      className="py-24 relative overflow-hidden"
+      className="py-20 sm:py-24 relative overflow-hidden"
       style={{ background: "linear-gradient(180deg, #1a0a0e 0%, #0f0508 100%)" }}
     >
-      {/* Decorative top */}
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(to right, transparent, #c9a96e, transparent)" }} />
 
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <FadeInCard>
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 sm:mb-12">
             <p className="text-xs tracking-[0.5em] uppercase mb-3" style={{ color: "#c9a96e", fontFamily: "'Lato', sans-serif" }}>
               Menyambut Hari Istimewa
             </p>
-            <h2
-              className="text-5xl"
-              style={{ fontFamily: "'Great Vibes', cursive", color: "#f5e6d0" }}
-            >
+            <h2 className="text-5xl" style={{ fontFamily: "'Great Vibes', cursive", color: "#f5e6d0" }}>
               Wedding
             </h2>
             <div className="flex items-center justify-center gap-3 mt-4">
@@ -129,11 +125,11 @@ export function WeddingDetails() {
         {/* Quranic verse */}
         <FadeInCard delay={0.1}>
           <div
-            className="text-center mb-12 px-8 py-8 rounded-2xl"
+            className="text-center mb-10 sm:mb-12 px-5 sm:px-8 py-6 sm:py-8 rounded-2xl"
             style={{ background: "rgba(201,169,110,0.05)", border: "1px solid rgba(201,169,110,0.15)" }}
           >
             <p
-              className="text-lg mb-3"
+              className="text-base sm:text-lg mb-3"
               style={{ fontFamily: "'Cormorant Garamond', serif", color: "#d4c0a5", fontStyle: "italic", lineHeight: 1.8 }}
             >
               "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
@@ -146,8 +142,8 @@ export function WeddingDetails() {
 
         {/* Countdown */}
         <FadeInCard delay={0.15}>
-          <div className="text-center mb-12">
-            <p className="text-sm mb-6 tracking-wider" style={{ color: "#9a8070", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}>
+          <div className="text-center mb-10 sm:mb-12">
+            <p className="text-sm mb-5 tracking-wider" style={{ color: "#9a8070", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}>
               Menuju Hari Bahagia
             </p>
             <CountdownTimer />
@@ -155,36 +151,36 @@ export function WeddingDetails() {
         </FadeInCard>
 
         {/* Divider */}
-        <div className="flex items-center gap-4 mb-10">
+        <div className="flex items-center gap-4 mb-8 sm:mb-10">
           <div className="h-px flex-1" style={{ background: "rgba(201,169,110,0.2)" }} />
           <Heart size={14} style={{ color: "#c9a96e" }} fill="#c9a96e" />
           <div className="h-px flex-1" style={{ background: "rgba(201,169,110,0.2)" }} />
         </div>
 
-        {/* Event cards */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Event cards — stacked on mobile, 2-col on md+ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {events.map((event, i) => (
             <FadeInCard key={i} delay={0.2 + i * 0.1}>
               <div
-                className="rounded-2xl p-6 h-full"
+                className="rounded-2xl p-5 sm:p-6 h-full"
                 style={{ background: "rgba(255,248,240,0.04)", border: "1px solid rgba(201,169,110,0.2)" }}
               >
-                <div className="flex items-center gap-3 mb-5">
+                <div className="flex items-center gap-3 mb-4 sm:mb-5">
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
                     style={{ background: "rgba(201,169,110,0.1)" }}
                   >
                     {event.icon}
                   </div>
                   <h3
-                    className="text-lg"
+                    className="text-base sm:text-lg"
                     style={{ fontFamily: "'Cormorant Garamond', serif", color: "#f5e6d0", fontWeight: 500 }}
                   >
                     {event.type}
                   </h3>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2.5 sm:space-y-3">
                   <div className="flex items-center gap-3">
                     <Calendar size={14} style={{ color: "#c9a96e" }} className="shrink-0" />
                     <span className="text-sm" style={{ fontFamily: "'Lato', sans-serif", color: "#b0a090", fontWeight: 300 }}>
@@ -214,7 +210,7 @@ export function WeddingDetails() {
                   href={event.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs tracking-wider uppercase transition-all duration-300 hover:opacity-80"
+                  className="mt-4 sm:mt-5 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs tracking-wider uppercase transition-all duration-300 hover:opacity-80"
                   style={{
                     fontFamily: "'Lato', sans-serif",
                     background: "rgba(201,169,110,0.15)",
@@ -232,9 +228,9 @@ export function WeddingDetails() {
 
         {/* Add to calendar */}
         <FadeInCard delay={0.4}>
-          <div className="text-center mt-10">
+          <div className="text-center mt-8 sm:mt-10">
             <button
-              className="px-8 py-3 rounded-full text-sm tracking-wider transition-all duration-300 hover:opacity-80"
+              className="px-6 sm:px-8 py-3 rounded-full text-sm tracking-wider transition-all duration-300 hover:opacity-80"
               style={{
                 fontFamily: "'Lato', sans-serif",
                 background: "linear-gradient(135deg, #c9a96e, #e8d5a3)",
